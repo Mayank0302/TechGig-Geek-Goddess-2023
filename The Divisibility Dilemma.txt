@@ -1,0 +1,40 @@
+#include <iostream>
+#include <vector>
+#include <unordered_set>
+using namespace std;
+int PA(vector<int> & nums, int K, int P){
+    unordered_set<string> subscribe;
+ int left=0;
+ int PA=0;
+ for(int right=0;right<nums.size();right++){
+  if(nums[right]%P==0){
+   PA++;
+  }
+  while(PA > K){
+   if(nums[left]%P==0){
+    PA--;
+   }
+   left++;
+  }
+  for(int i=left;i<=right;i++){
+   string share="";
+   for(int j=i;j<=right;j++){
+    share=share+to_string(nums[j]);
+    share+=",";
+   }
+   subscribe.insert(share);
+  }
+ }
+ return subscribe.size();
+}
+int main(){
+ int N,K,P;
+ cin>>N>>K>>P;
+ vector<int> nums(N);
+ for(int i=0;i<N;i++){
+  cin>>nums[i];
+ }
+ int count=PA(nums,K,P);
+ cout<<count<<endl;
+ return 0;
+}
